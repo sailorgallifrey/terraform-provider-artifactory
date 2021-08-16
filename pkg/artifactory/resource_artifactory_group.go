@@ -3,6 +3,8 @@ package artifactory
 import (
 	"context"
 	"fmt"
+
+	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 	"net/http"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -25,9 +27,10 @@ func resourceArtifactoryGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Type:         schema.TypeString,
+				Required:     true,
+				ForceNew:     true,
+				ValidateFunc: validation.StringIsNotEmpty,
 			},
 			"description": {
 				Type:     schema.TypeString,
@@ -112,7 +115,9 @@ func resourceGroupRead(d *schema.ResourceData, m interface{}) error {
 	c := m.(*ArtClient).ArtOld
 
 	group, resp, err := c.V1.Security.GetGroup(context.Background(), d.Id())
-
+	if resp == nil {
+		return fmt.Errorf("no response returned during resourceGroupRead")
+	}
 	// If we 404 it is likely the resources was externally deleted
 	// If the ID is updated to blank, this tells Terraform the resource no longer exist
 	if resp.StatusCode == http.StatusNotFound {
@@ -159,8 +164,11 @@ func resourceGroupDelete(d *schema.ResourceData, m interface{}) error {
 	}
 
 	_, resp, err := c.V1.Security.DeleteGroup(context.Background(), *group.Name)
+	if err != nil {
+		return err
+	}
 
-	if err != nil && resp.StatusCode == http.StatusNotFound {
+	if resp.StatusCode == http.StatusNotFound {
 		return nil
 	}
 
@@ -172,6 +180,9 @@ func resourceGroupExists(d *schema.ResourceData, m interface{}) (bool, error) {
 
 	groupName := d.Id()
 	_, resp, err := c.V1.Security.GetGroup(context.Background(), groupName)
+	if err != nil {
+		return false, err
+	}
 
 	if resp.StatusCode == http.StatusNotFound {
 		return false, nil
