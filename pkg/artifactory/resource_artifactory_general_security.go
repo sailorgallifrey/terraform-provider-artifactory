@@ -3,9 +3,8 @@ package artifactory
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"gopkg.in/yaml.v2"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"gopkg.in/yaml.v3"
 )
 
 type GeneralSecurity struct {

@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/jasonwbarnett/go-xray/xray"
 	v1 "github.com/jasonwbarnett/go-xray/xray/v1"
 )
@@ -51,6 +51,7 @@ func resourceXrayPolicy() *schema.Resource {
 
 			"rules": {
 				Type:     schema.TypeList,
+				MaxItems: 1,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
