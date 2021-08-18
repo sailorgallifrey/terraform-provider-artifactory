@@ -128,7 +128,7 @@ func resourceOauthSettingsRead(ctx context.Context, d *schema.ResourceData, m in
 
 	_, body, _, err := c.Client().SendGet(fmt.Sprintf("%sapi/oauth", serviceDetails.GetUrl()), false, &httpClientDetails)
 	if err != nil {
-		return diag.Errorf("failed to retrieve data from <base_url>/artifactory/api/oauth during Read, if you are using the SAAS offering of artifactory this feature is not supported")
+		return diag.Errorf("failed to retrieve data from <base_url>/artifactory/api/oauth during Read.  If you are using the SaaS offering of Artifactory this feature is not supported")
 	}
 
 	err = json.Unmarshal(body, &oauthSettings)
