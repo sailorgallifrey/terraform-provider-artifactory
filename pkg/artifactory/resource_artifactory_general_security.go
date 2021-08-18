@@ -86,8 +86,6 @@ func resourceGeneralSecurityUpdate(ctx context.Context, d *schema.ResourceData, 
 	// we should only have one general security settings resource, using same id
 	d.SetId("security")
 	return resourceGeneralSecurityRead(ctx, d, m)
-
-	return nil
 }
 
 func resourceGeneralSecurityDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
