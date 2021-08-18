@@ -94,7 +94,7 @@ func Provider() *schema.Provider {
 				Optional:      true,
 				Sensitive:     true,
 				DefaultFunc:   schema.EnvDefaultFunc("ARTIFACTORY_ACCESS_TOKEN", nil),
-				ConflictsWith: []string{ "api_key", "password"},
+				ConflictsWith: []string{"api_key", "password"},
 			},
 		},
 
@@ -161,8 +161,8 @@ func providerConfigure(d *schema.ResourceData, terraformVersion string) (interfa
 		}
 		return nil
 	}).
-	SetHeader("content-type", "application/json").
-	SetHeader("user-agent", "jfrog/terraform-provider-artifactory:" +terraformVersion)
+		SetHeader("content-type", "application/json").
+		SetHeader("user-agent", "jfrog/terraform-provider-artifactory:"+terraformVersion)
 
 	username := d.Get("username").(string)
 	password := d.Get("password").(string)
@@ -178,14 +178,14 @@ func providerConfigure(d *schema.ResourceData, terraformVersion string) (interfa
 	if accessToken != "" {
 		restyBase = restyBase.SetAuthToken(accessToken)
 	}
-	type Feature struct{
+	type Feature struct {
 		FeatureId string `json:"featureId"`
 	}
 	type UsageStruct struct {
-		ProductId    string `json:"productId"`
-		Features   []Feature `json:"features"`
+		ProductId string    `json:"productId"`
+		Features  []Feature `json:"features"`
 	}
-	_,err = restyBase.R().SetBody(UsageStruct{
+	_, err = restyBase.R().SetBody(UsageStruct{
 		"terraform-provider-artifactory/" + Version,
 		[]Feature{
 			{FeatureId: "Terraform/" + terraformVersion},
@@ -200,7 +200,7 @@ func providerConfigure(d *schema.ResourceData, terraformVersion string) (interfa
 		ArtOld: nil,
 		ArtNew: nil,
 		Xray:   nil,
-		Resty: restyBase,
+		Resty:  restyBase,
 	}
 
 	return rt, nil

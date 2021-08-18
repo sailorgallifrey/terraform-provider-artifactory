@@ -72,13 +72,13 @@ func resourceXrayPolicy() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									// Security criteria
 									"min_severity": {
-										Type:          schema.TypeString,
-										Optional:      true,
+										Type:     schema.TypeString,
+										Optional: true,
 									},
 									"cvss_range": {
-										Type:          schema.TypeList,
-										Optional:      true,
-										MaxItems:      1,
+										Type:     schema.TypeList,
+										Optional: true,
+										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"from": {
@@ -94,19 +94,19 @@ func resourceXrayPolicy() *schema.Resource {
 									},
 									// License Criteria
 									"allow_unknown": {
-										Type:          schema.TypeBool,
-										Optional:      true,
+										Type:     schema.TypeBool,
+										Optional: true,
 									},
 									"banned_licenses": {
-										Type:          schema.TypeList,
-										Optional:      true,
+										Type:     schema.TypeList,
+										Optional: true,
 										Elem: &schema.Schema{
 											Type: schema.TypeString,
 										},
 									},
 									"allowed_licenses": {
-										Type:          schema.TypeList,
-										Optional:      true,
+										Type:     schema.TypeList,
+										Optional: true,
 										Elem: &schema.Schema{
 											Type: schema.TypeString,
 										},

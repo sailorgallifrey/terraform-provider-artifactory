@@ -214,7 +214,6 @@ func TestAccPolicy_badSecurityCriteria(t *testing.T) {
 	})
 }
 
-
 // This should be uncommented when someone figures out how to deal with this (see comment in expandActions in the provider)
 /*func TestAccPolicy_missingBlockDownloads(t *testing.T) {
 	policyName   := "terraform-test-policy"
