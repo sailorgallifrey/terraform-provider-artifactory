@@ -155,8 +155,8 @@ func resourceOauthSettingsRead(ctx context.Context, d *schema.ResourceData, m in
 
 	return diag.Diagnostics{{
 		Severity: diag.Warning,
-		Summary:  "oauth resources use undocumented API endpoints",
-		Detail:   "oauth resources use artifactory endpoints that are undocumented and do not exist in the SAAS version",
+		Summary:  "oauth settings resource uses undocumented API endpoints",
+		Detail:   "oauth settings resource uses Artifactory endpoints that are undocumented and do not exist in the SaaS version",
 	}}
 }
 
